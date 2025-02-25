@@ -17,6 +17,7 @@
             min-height: 100vh;
             overflow: hidden;
             transition: background 0.5s ease-in-out;
+            color: white; /* Ensure text is always white */
         }
 
         /* Background Styles */
@@ -206,35 +207,4 @@
             ctx.fillStyle = "#00ff00";
             ctx.font = fontSize + "px monospace";
 
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 50);
-
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Function to change background style
-        function setBackground(style) {
-            document.body.className = `${style}-background`;
-
-            // Special actions for matrix effect
-            if (style === 'matrix') {
-                canvas.style.display = 'block'; // Show canvas
-            } else {
-                canvas.style.display = 'none'; // Hide canvas for other backgrounds
-            }
-        }
-    </script>
-</body>
-</html>
+            for (let i = 0; i < drops.length; i

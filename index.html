@@ -235,7 +235,18 @@
             } else {
                 canvas.style.display = 'none'; // Hide canvas for other backgrounds
             }
+
+            // Save selected background in localStorage to keep it consistent
+            localStorage.setItem("background", style);
         }
+
+        // Set the initial background when the page loads
+        window.onload = function() {
+            const savedBackground = localStorage.getItem("background");
+            if (savedBackground) {
+                setBackground(savedBackground);
+            }
+        };
     </script>
 </body>
 </html>

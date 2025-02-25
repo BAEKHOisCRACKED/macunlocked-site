@@ -12,6 +12,10 @@
             color: white;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
         }
 
         .container {
@@ -19,7 +23,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            flex-grow: 1;
         }
 
         h1 {
@@ -30,6 +34,7 @@
         .cards {
             display: flex;
             gap: 20px;
+            position: relative;
         }
 
         .card {
@@ -46,16 +51,47 @@
             background: #292929;
             transform: scale(1.05);
         }
+
+        /* Guide button styling */
+        .guide-card {
+            margin-top: 20px;
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .guide-card:hover {
+            background: #292929;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 10px;
+            background: #1e1e1e;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>MacUnlocked</h1>
+        <h1>🔓MacUnlocked🔓</h1>
         <div class="cards">
             <div class="card">🎮 Top Unblocked Games</div>
             <div class="card">📂 Most Downloaded Apps</div>
             <div class="card">🛡️ Best VPNs for School</div>
         </div>
+        <div class="guide-card">📖 Guide</div> <!-- Guide button below middle card -->
+    </div>
+
+    <div class="footer">
+        © 2025 MacUnlocked. All Rights Reserved.
     </div>
 </body>
 </html>

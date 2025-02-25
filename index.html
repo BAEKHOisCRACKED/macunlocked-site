@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Exo 2', sans-serif;
-            background: #333;
+            background: #121212;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,26 +17,34 @@
             color: white;
             flex-direction: column;
             overflow: hidden;
+            transition: background 0.5s ease-in-out;
         }
 
-        /* Lock Icon */
+        /* Lock Icon Animation */
         .lock {
             font-size: 50px;
             cursor: pointer;
             background-color: transparent;
             border: none;
             color: white;
-            transition: transform 0.3s, color 0.3s;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #00c3ff, 0 0 20px #00c3ff, 0 0 30px #00c3ff;
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 30px #8a2be2;
         }
 
         .lock:hover {
-            transform: scale(1.1);
-            color: #00c3ff;
+            transform: scale(1.1) rotate(5deg);
         }
 
-        /* Input container with fade-in effect */
+        .lock:active {
+            animation: bounce 0.3s;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Input container */
         .input-container {
             display: none;
             flex-direction: column;
@@ -55,78 +63,99 @@
             color: white;
             width: 250px;
             text-align: center;
+            font-family: monospace;
             transition: border-color 0.3s;
+            box-shadow: 0 0 10px #8a2be2;
         }
 
         input:focus {
             outline: none;
-            border-color: #00c3ff;
+            border-color: #8a2be2;
         }
 
-        /* Submit button with glowing effect */
+        /* Blinking cursor effect */
+        input::placeholder {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Submit button with ripple effect */
         button {
             padding: 10px 20px;
             font-size: 18px;
             background: transparent;
-            border: 2px solid #00c3ff;
+            border: 2px solid #8a2be2;
             color: white;
             cursor: pointer;
             border-radius: 5px;
-            transition: background 0.3s, box-shadow 0.3s;
-            text-shadow: 0 0 10px #00c3ff, 0 0 20px #00c3ff;
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+            transition: 0.3s;
         }
 
         button:hover {
-            background: #00c3ff;
-            box-shadow: 0 0 15px #00c3ff, 0 0 30px #00c3ff;
+            background: #8a2be2;
+            box-shadow: 0 0 15px #8a2be2;
         }
 
-        /* Glowing button on hover */
-        button:focus {
-            outline: none;
-            background: #0088cc;
-            box-shadow: 0 0 15px #0088cc, 0 0 25px #0088cc;
+        /* Wrong password animation */
+        .shake {
+            animation: shake 0.5s ease-in-out;
         }
 
-        /* Animation for fadeIn */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* Fade-in animation */
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
-
     </style>
 </head>
 <body>
-    <!-- Lock Icon -->
     <button class="lock" onclick="showPasswordInput()">🔒</button>
 
-    <!-- Password Input Container -->
     <div class="input-container" id="inputContainer">
         <input type="password" id="password" placeholder="Enter password">
-        <button onclick="checkPassword()">Submit</button>
+        <button onclick="checkPassword(event)">Submit</button>
+        <p class="error-message" id="errorMessage">Incorrect password!</p>
     </div>
 
     <script>
-        // Function to show the password input
         function showPasswordInput() {
-            document.querySelector('.lock').style.display = 'none'; // Hide the lock
-            document.getElementById('inputContainer').style.display = 'flex'; // Show input
+            document.querySelector('.lock').style.display = 'none';
+            document.getElementById('inputContainer').style.display = 'flex';
         }
 
-        // Function to check password
-        function checkPassword() {
+        function checkPassword(event) {
+            event.preventDefault();
             const password = document.getElementById('password').value;
-            const correctPassword = 'reggin123';
+            const errorMessage = document.getElementById('errorMessage');
 
-            if (password === correctPassword) {
-                // Redirect to the second page (index2.html)
+            if (password === 'reggin123') {
                 window.location.href = 'index3.html';
             } else {
-                alert('Incorrect password!');
+                errorMessage.style.opacity = '1';
+                document.getElementById('password').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('password').classList.remove('shake');
+                }, 500);
             }
         }
     </script>

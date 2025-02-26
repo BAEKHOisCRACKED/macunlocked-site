@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacUnlocked - Cookie Clicker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a1a, #222, #121212);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+            color: white;
+            transition: background 0.5s ease-in-out;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(30, 30, 30, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .top-bar h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .back-button, .fullscreen-button {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover, .fullscreen-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 80%;
+            height: 500px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .game-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .game-description {
+            width: 80%;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #bbbbbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <button class="back-button" onclick="window.location.href='https://baekhoiscracked.github.io/macunlocked-site/pages/homepage.html'">← Back</button>
+        <h1>🔓MacUnlocked🔓</h1>
+        <div></div>
+    </div>
+
+    <div class="game-container">
+        <iframe src="https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://cdn.jsdelivr.net/gh/bobydob/JSEngine@e7d53b913d54429e5e118ca9541fb0f8f1f66bdc/dist/cc.xml&container=ig"></iframe>
+        <div class="game-title">
+            <span>Cookie Clicker</span>
+            <button class="fullscreen-button" onclick="toggleFullScreen()">⛶ Fullscreen</button>
+        </div>
+        <div class="game-description">
+            <p>Cookie Clicker is an incremental game created by French programmer Julien "Orteil" Thiennot in 2013. In the game, the user clicks on a big cookie to earn cookies, which can then be used to purchase assets like "cursors" and other "buildings" that automatically produce more cookies. The goal is to produce as many cookies as possible, and there is no end to the game. The game has been actively developed since its release.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleFullScreen() {
+            const iframe = document.querySelector("iframe");
+            if (!document.fullscreenElement) {
+                iframe.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>

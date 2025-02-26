@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacUnlocked</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: black;
+            color: #8a2be2;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Typing Effect */
+        .hacker-text {
+            font-size: 24px;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #8a2be2;
+            padding-right: 5px;
+            animation: blinkCursor 0.8s infinite;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes blinkCursor {
+            50% { border-color: transparent; }
+        }
+
+        /* Matrix Rain Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+              .button {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background: #292929;
+            transform: scale(1.07);
+            box-shadow: 0 0 15px #8a2be2;
+        }
+
+        /* Main Content (Initially Hidden) */
+        .main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 60px;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #ff00ff;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #ff00ff; }
+            50% { text-shadow: 0 0 15px #ff00ff, 0 0 25px #8a2be2, 0 0 50px #ff00ff; }
+            100% { text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #ff00ff; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Effect -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <!-- Typing Effect -->
+    <div class="hacker-text" id="hackerText"></div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <h1>🔓MacUnlocked🔓</h1>
+        <p class="subheading">The best unblocked games, apps, and VPNs for Mac.</p>
+        <a href="#" class="button">Enter</a>
+    </div>
+
+    <script>
+        const messages = [
+            "Accessing MacUnlocked...",
+            "Hacking the mainframe...",
+            "Bypassing firewalls...",
+            "Decrypting school security...",
+            "Deploying exploits...",
+            "Injecting KRNL...",
+            "Downloading premium bypass...",
+            "Evading detection protocols...",
+            "Unblocking the impossible..."
+        ];
+
+        let messageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 50;
+        const deletingSpeed = 30;
+        const pauseTime = 800;
+
+        function typeEffect() {
+            const textElement = document.getElementById("hackerText");
+            const currentMessage = messages[messageIndex];
+
+            if (!isDeleting) {
+                textElement.textContent = currentMessage.substring(0, charIndex + 1);
+                charIndex++;
+
+                if (charIndex === currentMessage.length) {
+                    isDeleting = true;
+                    setTimeout(typeEffect, pauseTime);
+                } else {
+                    setTimeout(typeEffect, typingSpeed);
+                }
+            } else {
+                textElement.textContent = currentMessage.substring(0, charIndex - 1);
+                charIndex--;
+
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    messageIndex++;
+
+                    if (messageIndex === messages.length) {
+                        setTimeout(showMainContent, pauseTime);
+                        return;
+                    }
+                }
+                setTimeout(typeEffect, deletingSpeed);
+            }
+        }
+
+        function showMainContent() {
+            document.getElementById("hackerText").style.display = "none";
+            document.getElementById("mainContent").style.display = "flex";
+            setTimeout(() => {
+                document.getElementById("mainContent").style.opacity = 1;
+            }, 100);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(typeEffect, 500);
+        });
+
+        // Matrix Effect
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#8a2be2";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+    </script>
+</body>
+</html>

@@ -143,15 +143,24 @@
             }
         }
 
-        function displayGames(games) {
-            const gamesContainer = document.getElementById("gamesContainer");
-            gamesContainer.innerHTML = games.map(game => `
-                <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
-                    <img src="${githubPagesURL + game.image}" alt="${game.name}">
-                    <div class="game-title">${game.name}</div>
-                </div>
-            `).join('');
-        }
+function displayGames(games) {
+    const gamesContainer = document.getElementById("gamesContainer");
+    
+    if (games.length === 0) {
+        gamesContainer.innerHTML = `<p style="font-size: 20px; color: #ff00ff; text-shadow: 0 0 10px #8a2be2; text-align: center; width: 100%;">No games found 😢</p>`;
+        gamesContainer.style.display = "flex";
+        gamesContainer.style.justifyContent = "center";
+        return;
+    }
+
+    gamesContainer.style.display = "grid";
+    gamesContainer.innerHTML = games.map(game => `
+        <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
+            <img src="${githubPagesURL + game.image}" alt="${game.name}">
+            <div class="game-title">${game.name}</div>
+        </div>
+    `).join('');
+}
 
         function filterGames() {
             const searchInput = document.getElementById("searchInput").value.toLowerCase();
@@ -173,6 +182,5 @@
     </script>
 </body>
 </html>
-
 
 

@@ -83,37 +83,43 @@
     <h1>🎮 MacUnlocked Games 🎮</h1>
     <div class="games-container" id="gamesContainer"></div>
 
-    <script>
-        const githubRepo = "https://raw.githubusercontent.com/YourGitHubUsername/YourRepoName/main/games/";
+<script>
+    const githubRepo = "https://raw.githubusercontent.com/BAEKHOisCRACKED/macunlocked-site/main/games/";
 
-        async function loadGames() {
-            const gamesContainer = document.getElementById("gamesContainer");
-            try {
-                const response = await fetch(githubRepo + "games.json");
-                const games = await response.json();
-                gamesContainer.innerHTML = games.map(game => `
-                    <div class="game-card" onclick="window.open('${githubRepo + game.file}', '_blank')">
-                        <img src="${githubRepo + game.image}" alt="${game.name}">
-                        <div class="game-title">${game.name}</div>
-                    </div>
-                `).join('');
-            } catch (error) {
-                console.error("Failed to load games: ", error);
+    async function loadGames() {
+        const gamesContainer = document.getElementById("gamesContainer");
+        try {
+            const response = await fetch(githubRepo + "games.json", { mode: 'cors' });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        }
 
-        // Sync background from homepage
-        function syncBackground() {
-            const savedBackground = localStorage.getItem("background");
-            if (savedBackground) {
-                document.body.className = `${savedBackground}-background`;
-            }
-        }
+            const games = await response.json();
 
-        window.onload = function() {
-            syncBackground();
-            loadGames();
-        };
-    </script>
+            gamesContainer.innerHTML = games.map(game => `
+                <div class="game-card" onclick="window.open('${githubRepo + game.file}', '_blank')">
+                    <img src="${githubRepo + game.image}" alt="${game.name}">
+                    <div class="game-title">${game.name}</div>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error("Failed to load games: ", error);
+        }
+    }
+
+    // Sync background from homepage
+    function syncBackground() {
+        const savedBackground = localStorage.getItem("background");
+        if (savedBackground) {
+            document.body.className = `${savedBackground}-background`;
+        }
+    }
+
+    window.onload = function() {
+        syncBackground();
+        loadGames();
+    };
+</script>
 </body>
 </html>

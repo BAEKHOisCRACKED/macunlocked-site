@@ -11,15 +11,39 @@
             text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #121212;
             color: white;
             opacity: 0;
             animation: fadeIn 1s ease-in-out forwards;
+            transition: background 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        /* Background Styles */
+        .normal-background {
+            background-color: #121212;
+        }
+        .matrix-background {
+            background-color: black;
+        }
+        .nebula-background {
+            background: url('https://github.com/BAEKHOisCRACKED/macunlocked-site/blob/main/image/blurred_background.jpg?raw=true') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Canvas for Matrix Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(2px);
+            opacity: 0.7;
         }
 
         .search-container {
@@ -102,14 +126,16 @@
             box-shadow: 0 0 15px #8a2be2;
         }
 
-	        h1 {
+        h1 {
             font-size: 60px;
             text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 40px #ff00ff;
             animation: flicker 1.5s infinite alternate;
         }
     </style>
 </head>
-<body>
+<body class="normal-background">
+    <canvas id="matrixCanvas"></canvas>
+
     <a href="homepage.html" class="back-button">⬅ Back</a>
     <h1>🎮 MacUnlocked Games 🎮</h1>
 
@@ -143,24 +169,24 @@
             }
         }
 
-function displayGames(games) {
-    const gamesContainer = document.getElementById("gamesContainer");
-    
-    if (games.length === 0) {
-        gamesContainer.innerHTML = `<p style="font-size: 20px; color: #ff00ff; text-shadow: 0 0 10px #8a2be2; text-align: center; width: 100%;">No games found 😢</p>`;
-        gamesContainer.style.display = "flex";
-        gamesContainer.style.justifyContent = "center";
-        return;
-    }
+        function displayGames(games) {
+            const gamesContainer = document.getElementById("gamesContainer");
+            
+            if (games.length === 0) {
+                gamesContainer.innerHTML = `<p style="font-size: 20px; color: #ff00ff; text-shadow: 0 0 10px #8a2be2; text-align: center; width: 100%;">No games found 😢</p>`;
+                gamesContainer.style.display = "flex";
+                gamesContainer.style.justifyContent = "center";
+                return;
+            }
 
-    gamesContainer.style.display = "grid";
-    gamesContainer.innerHTML = games.map(game => `
-        <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
-            <img src="${githubPagesURL + game.image}" alt="${game.name}">
-            <div class="game-title">${game.name}</div>
-        </div>
-    `).join('');
-}
+            gamesContainer.style.display = "grid";
+            gamesContainer.innerHTML = games.map(game => `
+                <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
+                    <img src="${githubPagesURL + game.image}" alt="${game.name}">
+                    <div class="game-title">${game.name}</div>
+                </div>
+            `).join('');
+        }
 
         function filterGames() {
             const searchInput = document.getElementById("searchInput").value.toLowerCase();
@@ -172,9 +198,17 @@ function displayGames(games) {
             const savedBackground = localStorage.getItem("background");
             if (savedBackground) {
                 document.body.className = `${savedBackground}-background`;
+                
+                // Handle Matrix Effect
+                if (savedBackground === 'matrix') {
+                    document.getElementById("matrixCanvas").style.display = 'block';
+                } else {
+                    document.getElementById("matrixCanvas").style.display = 'none';
+                }
             }
         }
 
+        // Set background on page load
         window.onload = function() {
             syncBackground();
             loadGames();
@@ -182,5 +216,3 @@ function displayGames(games) {
     </script>
 </body>
 </html>
-
-

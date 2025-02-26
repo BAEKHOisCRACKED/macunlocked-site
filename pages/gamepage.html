@@ -22,6 +22,31 @@
             to { opacity: 1; }
         }
 
+        .search-container {
+            margin: 20px auto;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            text-align: center;
+            background: rgba(30, 30, 30, 0.9);
+            color: white;
+            box-shadow: 0 0 15px #8a2be2;
+            transition: 0.3s;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 0 25px #ff00ff;
+            transform: scale(1.05);
+        }
+
         .games-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -81,47 +106,64 @@
 <body>
     <a href="homepage.html" class="back-button">⬅ Back</a>
     <h1>🎮 MacUnlocked Games 🎮</h1>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Search for a game..." onkeyup="filterGames()">
+    </div>
+
     <div class="games-container" id="gamesContainer"></div>
 
-<script>
-    const githubRepo = "https://raw.githubusercontent.com/BAEKHOisCRACKED/macunlocked-site/main/games/";
+    <script>
+        const githubPagesURL = "https://baekhoiscracked.github.io/macunlocked-site/";
 
-const githubPagesURL = "https://baekhoiscracked.github.io/macunlocked-site/";
+        async function loadGames() {
+            const gamesContainer = document.getElementById("gamesContainer");
+            try {
+                const response = await fetch("https://raw.githubusercontent.com/BAEKHOisCRACKED/macunlocked-site/main/games/games.json");
 
-async function loadGames() {
-    const gamesContainer = document.getElementById("gamesContainer");
-    try {
-        const response = await fetch("https://raw.githubusercontent.com/BAEKHOisCRACKED/macunlocked-site/main/games/games.json");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+                const games = await response.json();
+
+                // Store games globally so search can filter them
+                window.allGames = games;
+
+                displayGames(games);
+            } catch (error) {
+                console.error("Failed to load games: ", error);
+            }
         }
 
-        const games = await response.json();
-
-        gamesContainer.innerHTML = games.map(game => `
-            <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
-                <img src="${githubPagesURL + game.image}" alt="${game.name}">
-                <div class="game-title">${game.name}</div>
-            </div>
-        `).join('');
-    } catch (error) {
-        console.error("Failed to load games: ", error);
-    }
-}
-
-    // Sync background from homepage
-    function syncBackground() {
-        const savedBackground = localStorage.getItem("background");
-        if (savedBackground) {
-            document.body.className = `${savedBackground}-background`;
+        function displayGames(games) {
+            const gamesContainer = document.getElementById("gamesContainer");
+            gamesContainer.innerHTML = games.map(game => `
+                <div class="game-card" onclick="window.open('${githubPagesURL + game.file}', '_blank')">
+                    <img src="${githubPagesURL + game.image}" alt="${game.name}">
+                    <div class="game-title">${game.name}</div>
+                </div>
+            `).join('');
         }
-    }
 
-    window.onload = function() {
-        syncBackground();
-        loadGames();
-    };
-</script>
+        function filterGames() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const filteredGames = window.allGames.filter(game => game.name.toLowerCase().includes(searchInput));
+            displayGames(filteredGames);
+        }
+
+        function syncBackground() {
+            const savedBackground = localStorage.getItem("background");
+            if (savedBackground) {
+                document.body.className = `${savedBackground}-background`;
+            }
+        }
+
+        window.onload = function() {
+            syncBackground();
+            loadGames();
+        };
+    </script>
 </body>
 </html>

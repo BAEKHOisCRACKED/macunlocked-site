@@ -91,7 +91,7 @@
 </head>
 <body>
     <div class="top-bar">
-        <button class="back-button" onclick="window.location.href='https://baekhoiscracked.github.io/macunlocked-site/pages/homepage.html'">← Back</button>
+        <button class="back-button" onclick="goBack()">← Back</button>
         <h1>🔓MacUnlocked🔓</h1>
         <div></div>
     </div>
@@ -108,6 +108,11 @@
     </div>
 
     <script>
+        function goBack() {
+            const baseURL = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');
+            window.location.href = baseURL + "/homepage.html";
+        }
+
         function toggleFullScreen() {
             const iframe = document.querySelector("iframe");
             if (!document.fullscreenElement) {

@@ -147,7 +147,7 @@
         async function loadGames() {
             const gamesContainer = document.getElementById("gamesContainer");
             try {
-                const response = await fetch("/games/games.json");
+                const response = await fetch("games/games.json");
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);

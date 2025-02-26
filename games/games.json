@@ -1,5 +1,5 @@
 [
     { "name": "Bacon May Die", "file": "games/html/baconmaydie.html", "image": "games/html/baconmaydie.jpg" },
     { "name": "Cookie Clicker", "file": "games/html/cookieclicker.html", "image": "games/html/cookieclicker.png" },
-    { "name": "2048", "file": "games/html/2048.html", "image": "games/html/2048.png" },
+    { "name": "2048", "file": "games/html/2048.html", "image": "games/html/2048.png" }
 ]

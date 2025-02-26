@@ -186,19 +186,20 @@
             displayGames(filteredGames);
         }
 
-        function syncBackground() {
-            const savedBackground = localStorage.getItem("background");
-            document.body.className = `${savedBackground}-background`;
+function syncBackground() {
+    const savedBackground = localStorage.getItem("background");
+    document.body.className = `${savedBackground}-background`;
 
-            // Show or hide Matrix effect
-            const matrixCanvas = document.getElementById("matrixCanvas");
-            if (savedBackground === "matrix") {
-                matrixCanvas.style.display = "block";
-                startMatrixEffect();
-            } else {
-                matrixCanvas.style.display = "none";
-            }
-        }
+    // Show or hide Matrix effect
+    const matrixCanvas = document.getElementById("matrixCanvas");
+    if (savedBackground === "matrix") {
+        matrixCanvas.style.display = "block";
+        setTimeout(startMatrixEffect, 100); // Ensure effect starts
+    } else {
+        matrixCanvas.style.display = "none";
+    }
+}
+
 
         function startMatrixEffect() {
             const canvas = document.getElementById("matrixCanvas");

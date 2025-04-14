@@ -69,9 +69,7 @@ main() {
     fi
     
     echo -n "Installing Latest Roblox... "
-    # Cleanup existing installation in Documents
     [ -d "$HOME/Documents/Roblox.app" ] && rm -rf "$HOME/Documents/Roblox.app"
-
     unzip -o -q "./RobloxPlayer.zip"
     mv ./RobloxPlayer.app "$HOME/Documents/Roblox.app"
     rm ./RobloxPlayer.zip
@@ -101,9 +99,8 @@ main() {
     rm ./insert_dylib
 
     echo -n "Installing MacSploit App... "
-    [ -d "./Applications/MacSploit.app" ] && rm -rf "./Applications/MacSploit.app"
-    [ -d "/Applications/MacSploit.app" ] && rm -rf "/Applications/MacSploit.app"
-    mv ./MacSploit.app /Applications/MacSploit.app
+    [ -d "$HOME/Documents/MacSploit.app" ] && rm -rf "$HOME/Documents/MacSploit.app"
+    mv ./MacSploit.app "$HOME/Documents/MacSploit.app"
     rm ./MacSploit.zip
     
     touch ~/Downloads/ms-version.json
@@ -115,7 +112,7 @@ main() {
     
     rm ./jq
     echo -e "Done."
-    echo -e "Install Complete! Developed by Nexus42!"
+    echo -e "Install Complete! Developed by pluh"
     exit
 }
 
